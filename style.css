@@ -30,6 +30,7 @@ body {
     font-size: 30px;
     border: 0;
     border-bottom: 2px solid brown;
+    text-align: right;
 }
 
 .calc-input:focus {
