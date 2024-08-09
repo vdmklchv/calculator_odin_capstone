@@ -16,10 +16,11 @@ body {
     background-color: beige;
     flex-basis: 300px;
     flex-shrink: 0;
+    border-radius: 10px;
 }
 
 .input-block {
-    width: 100%;
+    margin: 10px;
 }
 
 .calc-input {
@@ -27,6 +28,12 @@ body {
     height: 50px;
     padding: 30px;
     font-size: 30px;
+    border: 0;
+    border-bottom: 2px solid brown;
+}
+
+.calc-input:focus {
+    outline: none;
 }
 
 .buttons {
