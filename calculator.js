@@ -20,7 +20,7 @@ const calculator = {
         firstNum: 0,
         secondNum: 0,
         storage: 0,
-        operator,
+        operator: "",
     },
 
     operate: operate,
@@ -44,4 +44,3 @@ function operate(num1, num2, operator) {
     }
 }
 
-export { calculator, memory };
