@@ -44,3 +44,33 @@ function operate(num1, num2, operator) {
     }
 }
 
+function process(e) {
+    if (e.target.className !== ".buttons") {
+        switch (e.target.value) {
+            case "clear":
+                input.value = "";
+                break;
+            case "add":
+                input.value += "+";
+                break;
+            case "subtract":
+                input.value += "-";
+                break;
+            case "multiply":
+                input.value += "*";
+                break;
+            case "divide":
+                input.value += "/";
+                break;
+            case "equals":
+                calculator.operate(num1, num2, operator);
+            default:
+                input.value += e.target.value;
+        }
+    }
+}
+
+const buttonContainer = document.querySelector(".buttons");
+const input = document.querySelector(".calc-input");
+
+buttonContainer.addEventListener('click', process);
