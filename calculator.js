@@ -103,6 +103,13 @@ function process(e) {
                 }
                 break;
             case "equals":
+                valueToParse = input.value;
+                elements = parseString(valueToParse);
+                console.log(elements);
+                if (elements.length === 3) {
+                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
+                    input.value = result;
+                }
                 break;
             default:
                 input.value += e.target.value;
