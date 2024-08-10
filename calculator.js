@@ -44,7 +44,6 @@ function parseString(string) {
 
     if (string.match(/^[-]d*/)) {
         const strippedString = string.slice(1,);
-        // brackets in regex help to keep separator as the element
         const strippedArray = strippedString.split(regex);
         strippedArray[0] = "-" + strippedArray[0];
         return strippedArray;
