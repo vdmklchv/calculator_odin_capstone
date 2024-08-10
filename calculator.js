@@ -16,12 +16,6 @@ const calculator = {
         return num1 / num2;
     },
 
-    memory: {
-        num1: 0,
-        num2: undefined,
-        operator: undefined,
-    },
-
 }
 
 function operate(num1, num2, operator) {
@@ -64,7 +58,6 @@ function process(e) {
                 valueToParse = input.value;
                 input.value += "+";
                 elements = parseString(valueToParse);
-                console.log(elements);
                 if (elements.length === 3) {
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
                     input.value = result + "+";
@@ -85,7 +78,6 @@ function process(e) {
                 valueToParse = input.value;
                 input.value += "*";
                 elements = parseString(valueToParse);
-                console.log(elements);
                 if (elements.length === 3) {
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
                     input.value = result + "*";
@@ -95,7 +87,6 @@ function process(e) {
                 valueToParse = input.value;
                 input.value += "/";
                 elements = parseString(valueToParse);
-                console.log(elements);
                 if (elements.length === 3) {
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
                     input.value = result + "/";
@@ -104,7 +95,6 @@ function process(e) {
             case "equals":
                 valueToParse = input.value;
                 elements = parseString(valueToParse);
-                console.log(elements);
                 if (elements.length === 3) {
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
                     input.value = result;
