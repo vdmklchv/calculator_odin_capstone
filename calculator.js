@@ -103,7 +103,7 @@ function process(e) {
                 elements = parseString(valueToParse);
                 if (Number(elements[2]) === 0) {
                     console.log("here");
-                    input.value="error, division by 0";
+                    input.value="division by 0";
                     return;
                 }
                 if (elements.length === 3) {
