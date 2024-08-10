@@ -87,6 +87,12 @@ function process(e) {
                 valueToParse = input.value;
                 input.value += "/";
                 elements = parseString(valueToParse);
+                console.log(elements);
+                if (Number(elements[2]) === 0) {
+                    console.log("here");
+                    input.value="error, division by 0";
+                    return;
+                }
                 if (elements.length === 3) {
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
                     input.value = result + "/";
@@ -95,6 +101,11 @@ function process(e) {
             case "equals":
                 valueToParse = input.value;
                 elements = parseString(valueToParse);
+                if (Number(elements[2]) === 0) {
+                    console.log("here");
+                    input.value="error, division by 0";
+                    return;
+                }
                 if (elements.length === 3) {
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
                     input.value = result;
