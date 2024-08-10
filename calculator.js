@@ -17,13 +17,10 @@ const calculator = {
     },
 
     memory: {
-        firstNum: 0,
-        secondNum: 0,
-        storage: 0,
-        operator: "",
+        num1: 0,
+        num2: undefined,
+        operator: undefined,
     },
-
-    operate: operate,
 
 }
 
@@ -41,32 +38,71 @@ function operate(num1, num2, operator) {
     }
 }
 
+function parseString(string) {
+    // regular brackets to include separator into split array
+    const regex = /([+\-*\\/])/
+
+    if (string.match(/^[-]d*/)) {
+        const strippedString = string.slice(1,);
+        // brackets in regex help to keep separator as the element
+        const strippedArray = strippedString.split(regex);
+        strippedArray[0] = "-" + strippedArray[0];
+        return strippedArray;
+    }
+
+    return string.split(regex);
+}
+
 function process(e) {
-    if (e.target.className !== ".buttons") {
+    let valueToParse = null;
+    let elements = null;
+    if (e.target.className !== "buttons") {
         switch (e.target.value) {
             case "clear":
                 input.value = "";
                 break;
             case "add":
+                valueToParse = input.value;
                 input.value += "+";
-                storeNumber(input.value, false);
+                elements = parseString(valueToParse);
+                console.log(elements);
+                if (elements.length === 3) {
+                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
+                    input.value = result + "+";
+                }
                 break;
             case "subtract":
+                // rewrite by changing case names to actual operators and simplify
+                // capture input prior to appending new operator to pass to the parser
+                valueToParse = input.value;
                 input.value += "-";
-                storeNumber(input.value, false);
-                break;
+                elements = parseString(valueToParse);
+                if (elements.length === 3) {
+                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
+                    input.value = result + "-";
+                }
+                break;    
             case "multiply":
+                valueToParse = input.value;
                 input.value += "*";
-                storeNumber(input.value, false);
+                elements = parseString(valueToParse);
+                console.log(elements);
+                if (elements.length === 3) {
+                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
+                    input.value = result + "*";
+                }
                 break;
             case "divide":
+                valueToParse = input.value;
                 input.value += "/";
-                storeNumber(input.value, false);
+                elements = parseString(valueToParse);
+                console.log(elements);
+                if (elements.length === 3) {
+                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
+                    input.value = result + "/";
+                }
                 break;
             case "equals":
-                storeNumber(input.value, true);
-                const result = calculator.operate(calculator.memory.firstNum, calculator.memory.secondNum, calculator.memory.operator);
-                input.value = result;
                 break;
             default:
                 input.value += e.target.value;
@@ -75,22 +111,6 @@ function process(e) {
     }
 }
 
-function storeNumber(inputValue, equalsPressed) {
-    if (!equalsPressed) {
-        const num1  = Number(inputValue[-1]) ? Number(inputValue) : Number(inputValue.slice(0, -1));
-        const operator = inputValue.slice(-1);
-        calculator.memory.operator = operator;
-        calculator.memory.firstNum = num1;
-    } else {
-        const regex = /(\d+(\.\d+)?)$/;
-        const match = inputValue.match(regex);
-        if (match) {
-            calculator.memory.secondNum = parseFloat(match);
-
-        }
-
-    }
-}
 
 const buttonContainer = document.querySelector(".buttons");
 const input = document.querySelector(".calc-input");
