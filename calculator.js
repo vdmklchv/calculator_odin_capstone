@@ -57,13 +57,14 @@ function process(e) {
         let value = null;
         if (e.type === "click") {
             value = e.target.value;
-        } else if (e.type === "keypress") {
+        } else if (e.type === "keydown") {
             value = e.key;
             if (value === "Enter") {
                 value = "equals";
             }
         }
         switch (value) {
+
             case "clear":
                 setDefaultInputValue();
                 enableOperatingButtons();
@@ -172,7 +173,7 @@ const selectors = {
     backspaceButton: document.querySelector("#backspace-button"),
 }
 
-document.addEventListener('keypress', process);
+document.addEventListener('keydown', process);
 selectors.buttonContainer.addEventListener('click', process);
 selectors.backspaceButton.addEventListener('click', removeLastElement);
 setDefaultInputValue();
