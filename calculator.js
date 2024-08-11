@@ -40,7 +40,7 @@ function operate(elements) {
 function parseString(string) {
     // parses string and returns numbers and operators
     // regular brackets to include separator into split array
-    const regex = /([+\-*\\/])/
+    const regex = /([+\-*\\/])/;
 
     if (string.match(/^[-]d*/)) {
         const strippedString = string.slice(1,);
@@ -59,15 +59,16 @@ function process(e) {
             value = e.target.value;
         } else if (e.type === "keydown") {
             value = e.key;
-            if (value === "Enter") {
-                value = "equals";
-            } else if (value === "Escape") {
-                value = "clear";
-            }
+            // check if only allowed characters
+            // const regexp = /[0-9\\*\\/\-+]/;
+            // if (!value.match(regexp)) {
+            //     return;
+            // }
         }
-        switch (value) {
 
+        switch (value) {
             case "clear":
+            case "Escape":
                 setDefaultInputValue();
                 enableOperatingButtons();
                 break;
@@ -84,7 +85,10 @@ function process(e) {
                 performOperation(constants.DIVIDE_OPERATOR);
                 break;
             case "equals":
+            case "Enter":
                 performOperation(constants.EQUALS_OPERATOR);
+                break;
+            case "Shift":
                 break;
             default:
                 if (e.target.id === "backspace-button" || e.key === "Backspace") {
