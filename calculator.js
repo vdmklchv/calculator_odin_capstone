@@ -59,11 +59,7 @@ function process(e) {
             value = e.target.value;
         } else if (e.type === "keydown") {
             value = e.key;
-            // check if only allowed characters
-            // const regexp = /[0-9\\*\\/\-+]/;
-            // if (!value.match(regexp)) {
-            //     return;
-            // }
+            
         }
 
         switch (value) {
@@ -98,12 +94,16 @@ function process(e) {
                 if (selectors.input.value === "0" && e.target.id !== "backspace-button") {
                     clearDefaultInputValue();
                 }
-                
-                if (e.type === "click") {
-                    selectors.input.value += e.target.value;
-                } else {
-                    selectors.input.value += e.key;
+                // check if only allowed characters
+                const regexp = /[0-9\\*\\/\-+]/;
+                if (value.match(regexp)) {
+                    if (e.type === "click") {
+                        selectors.input.value += e.target.value;
+                    } else {
+                        selectors.input.value += e.key;
+                    }
                 }
+
                 break;
         }
     }
