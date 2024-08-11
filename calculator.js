@@ -48,7 +48,6 @@ function parseString(string) {
 }
 
 function process(e) {
-    clearDefaultInputValue();
     if (e.target.className !== "buttons") {
         switch (e.target.value) {
             case "clear":
@@ -71,6 +70,9 @@ function process(e) {
                 performOperation("=");
                 break;
             default:
+                if (selectors.input.value === "0") {
+                    clearDefaultInputValue();
+                }
                 selectors.input.value += e.target.value;
                 break;
         }
