@@ -33,6 +33,7 @@ function operate(num1, num2, operator) {
 }
 
 function parseString(string) {
+    // parses string and returns numbers and operators
     // regular brackets to include separator into split array
     const regex = /([+\-*\\/])/
 
