@@ -61,6 +61,8 @@ function process(e) {
             value = e.key;
             if (value === "Enter") {
                 value = "equals";
+            } else if (value === "Escape") {
+                value = "clear";
             }
         }
         switch (value) {
