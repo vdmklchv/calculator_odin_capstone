@@ -59,7 +59,7 @@ function process(e) {
             value = e.target.value;
         } else if (e.type === "keydown") {
             value = e.key;
-            
+
         }
 
         switch (value) {
@@ -145,7 +145,13 @@ function performOperation(operator) {
             disableOperatingButtons();
             return;
         }
-        const result = operate(elements);
+        let result = operate(elements);
+        // check if it is a long float
+        const regExp = /\d*\.\d{8,}/;
+        // fix long float to 8 digits after the dot
+        if (result.toString().match(regExp)) {
+            result = result.toFixed(8);
+        }
         selectors.input.value = operator === constants.EQUALS_OPERATOR ? result : result + operator;
     }    
 }
