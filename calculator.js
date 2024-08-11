@@ -109,6 +109,9 @@ function enableOperatingButtons() {
 function performOperation(operator) {
     // capture input prior to appending new operator to pass to the parser
     const valueToParse = selectors.input.value;
+    if (selectors.input.value === "0") {
+        clearDefaultInputValue();
+    }
     if (operator !== "=") {
         selectors.input.value += operator;
     }
