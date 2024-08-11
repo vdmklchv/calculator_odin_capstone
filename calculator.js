@@ -59,7 +59,19 @@ function process(e) {
             value = e.target.value;
         } else if (e.type === "keydown") {
             value = e.key;
+        }
 
+        const dotForbidden = isDotForbidden(selectors.input.value);
+
+        if (dotForbidden) {
+            // forbid dot from buttons
+            selectors.floatPoint.disabled = true;
+            // forbid dot from keyboard
+            if (value === ".") {
+                value = "";
+            }
+        } else {
+            selectors.floatPoint.disabled = false;
         }
 
         switch (value) {
@@ -171,6 +183,22 @@ function removeLastElement() {
     }
 }
 
+function isDotForbidden(inputValue){
+    // allow dot
+    const case1regexp = /^.\d*$/;
+    const case2regexp = /^.\d*\.?\d*[+\-\*\\]\d*/;
+    // restrict dot
+    const case3regexp = /^.?\d*\.\d*$/;
+    const case4regexp = /^.\d*\.?\d*[+\-\*\\]\d*\.\d*/
+
+    // do not allow dot
+    if (inputValue.match(case3regexp) || inputValue.match(case4regexp)) {
+        return true;
+    }
+    // allow dot
+    return false;
+}
+
 const constants = {
     ADD_OPERATOR: "+",
     SUBTRACT_OPERATOR: "-",
@@ -186,6 +214,7 @@ const selectors = {
     input: document.querySelector(".calc-input"),
     operatingButtons: document.querySelectorAll(".buttons > button:not(:first-child"),
     backspaceButton: document.querySelector("#backspace-button"),
+    floatPoint: document.querySelector("#float-point"),
 }
 
 document.addEventListener('keydown', process);
