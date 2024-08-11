@@ -54,7 +54,16 @@ function parseString(string) {
 
 function process(e) {
     if (e.target.className !== "buttons") {
-        switch (e.target.value) {
+        let value = null;
+        if (e.type === "click") {
+            value = e.target.value;
+        } else if (e.type === "keypress") {
+            value = e.key;
+            if (value === "Enter") {
+                value = "equals";
+            }
+        }
+        switch (value) {
             case "clear":
                 setDefaultInputValue();
                 enableOperatingButtons();
@@ -79,7 +88,11 @@ function process(e) {
                     clearDefaultInputValue();
                 }
                 if (e.target.id !== "backspace-button") {
-                    selectors.input.value += e.target.value;
+                    if (e.type === "click") {
+                        selectors.input.value += e.target.value;
+                    } else {
+                        selectors.input.value += e.key;
+                    }
                 }
                 break;
         }
@@ -159,6 +172,7 @@ const selectors = {
     backspaceButton: document.querySelector("#backspace-button"),
 }
 
+document.addEventListener('keypress', process);
 selectors.buttonContainer.addEventListener('click', process);
 selectors.backspaceButton.addEventListener('click', removeLastElement);
 setDefaultInputValue();
