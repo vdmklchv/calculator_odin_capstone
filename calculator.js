@@ -95,7 +95,7 @@ function process(e) {
                     clearDefaultInputValue();
                 }
                 // check if only allowed characters
-                const regexp = /[0-9\\*\\/\-+]/;
+                const regexp = /[0-9\\*\\/\-+\.]/;
                 if (value.match(regexp)) {
                     if (e.type === "click") {
                         selectors.input.value += e.target.value;
@@ -150,7 +150,7 @@ function performOperation(operator) {
         const regExp = /\d*\.\d{8,}/;
         // fix long float to 8 digits after the dot
         if (result.toString().match(regExp)) {
-            result = result.toFixed(8);
+            result = result.toPrecision(8);
         }
         selectors.input.value = operator === constants.EQUALS_OPERATOR ? result : result + operator;
     }    
