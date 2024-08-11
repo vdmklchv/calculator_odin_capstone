@@ -85,10 +85,13 @@ function process(e) {
                 performOperation(constants.EQUALS_OPERATOR);
                 break;
             default:
+                if (e.target.id === "backspace-button" || e.key === "Backspace") {
+                    removeLastElement();
+                }
                 if (selectors.input.value === "0" && e.target.id !== "backspace-button") {
                     clearDefaultInputValue();
                 }
-                if (e.target.id !== "backspace-button") {
+                if (e.target.id !== "backspace-button" && e.key !== "Backspace") {
                     if (e.type === "click") {
                         selectors.input.value += e.target.value;
                     } else {
@@ -175,5 +178,4 @@ const selectors = {
 
 document.addEventListener('keydown', process);
 selectors.buttonContainer.addEventListener('click', process);
-selectors.backspaceButton.addEventListener('click', removeLastElement);
 setDefaultInputValue();
