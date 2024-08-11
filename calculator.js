@@ -56,60 +56,21 @@ function process(e) {
                 enableOperatingButtons();
                 break;
             case "add":
-                valueToParse = selectors.input.value;
-                selectors.input.value += "+";
-                elements = parseString(valueToParse);
-                if (elements.length === 3) {
-                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    selectors.input.value = result + "+";
-                }
+                performOperation("+");
                 break;
             case "subtract":
                 // rewrite by changing case names to actual operators and simplify
                 // capture input prior to appending new operator to pass to the parser
-                valueToParse = selectors.input.value;
-                selectors.input.value += "-";
-                elements = parseString(valueToParse);
-                if (elements.length === 3) {
-                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    selectors.input.value = result + "-";
-                }
+                performOperation("-");
                 break;    
             case "multiply":
-                valueToParse = selectors.input.value;
-                selectors.input.value += "*";
-                elements = parseString(valueToParse);
-                if (elements.length === 3) {
-                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    selectors.input.value = result + "*";
-                }
+                performOperation("*");
                 break;
             case "divide":
-                valueToParse = selectors.input.value;
-                selectors.input.value += "/";
-                elements = parseString(valueToParse);
-                if (elements.length === 3) {
-                    if (isDividingByZero(elements)) {
-                        processDividingByZero();
-                        disableOperatingButtons();
-                        return;
-                    }
-                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    selectors.input.value = result + "/";
-                }
+                performOperation("/");
                 break;
             case "equals":
-                valueToParse = selectors.input.value;
-                elements = parseString(valueToParse);
-                if (elements.length === 3) {
-                    if (isDividingByZero(elements)) {
-                        processDividingByZero();
-                        disableOperatingButtons();
-                        return;
-                    }
-                    const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    selectors.input.value = result;
-                }
+                performOperation("=");
                 break;
             default:
                 selectors.input.value += e.target.value;
@@ -119,7 +80,7 @@ function process(e) {
 }
 
 function isDividingByZero(elements) {
-    return Number(elements[2]) === 0;
+    return elements[1] === "/" && Number(elements[2]) === 0;
 }
 
 function processDividingByZero() {
@@ -136,6 +97,23 @@ function enableOperatingButtons() {
     for (let button of selectors.operatingButtons) {
         button.disabled = false;
     }
+}
+
+function performOperation(operator) {
+    valueToParse = selectors.input.value;
+    if (operator !== "=") {
+        selectors.input.value += operator;
+    }
+    elements = parseString(valueToParse);
+    if (elements.length === 3) {
+        if (isDividingByZero(elements)) {
+            processDividingByZero();
+            disableOperatingButtons();
+            return;
+        }
+        const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
+        selectors.input.value = operator === "=" ? result : result + operator;
+    }    
 }
 
 const selectors = {
