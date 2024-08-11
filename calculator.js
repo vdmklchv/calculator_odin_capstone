@@ -78,7 +78,9 @@ function process(e) {
                 if (selectors.input.value === "0") {
                     clearDefaultInputValue();
                 }
-                selectors.input.value += e.target.value;
+                if (e.target.id !== "backspace-button") {
+                    selectors.input.value += e.target.value;
+                }
                 break;
         }
     }
@@ -130,12 +132,17 @@ function clearDefaultInputValue() {
     selectors.input.value = "";
 }
 
+function removeLastElement() {
+    selectors.input.value = selectors.input.value.slice(0, -1);
+}
+
 const selectors = {
     buttonContainer: document.querySelector(".buttons"),
     input: document.querySelector(".calc-input"),
     operatingButtons: document.querySelectorAll(".buttons > button:not(:first-child"),
+    backspaceButton: document.querySelector("#backspace-button"),
 }
 
-
 selectors.buttonContainer.addEventListener('click', process);
+selectors.backspaceButton.addEventListener('click', removeLastElement);
 setDefaultInputValue();
