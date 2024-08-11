@@ -37,7 +37,7 @@ function operate(elements) {
 }
 
 function parseString(string) {
-    // parses string and returns numbers and operators
+    // parses string and returns array of operands and operator
     // regular brackets to include separator into split array
     const regex = /([+\-*\\/])/;
 
@@ -60,6 +60,7 @@ function process(e) {
             value = e.key;
         }
 
+        // check if numbers already contain floating point and forbid entering second one for each number
         const dotForbidden = isDotForbidden(selectors.input.value);
 
         if (dotForbidden) {
@@ -105,7 +106,7 @@ function process(e) {
                 if (selectors.input.value === "0" && e.target.id !== "backspace-button") {
                     clearDefaultInputValue();
                 }
-                // check if only allowed characters
+                // check if only allowed characters, do not allow input of illegal buttons from keyboard
                 const regexp = /[0-9\\*\\/\-+\.]/;
                 if (value.match(regexp)) {
                     if (e.type === "click") {
@@ -114,7 +115,6 @@ function process(e) {
                         selectors.input.value += e.key;
                     }
                 }
-
                 break;
         }
     }
@@ -125,7 +125,7 @@ function isDividingByZero(elements) {
 }
 
 function processDividingByZero() {
-    selectors.input.value="division by 0";
+    selectors.input.value=constants.DIVISION_BY_ZERO_ERROR;
 }
 
 function disableOperatingButtons() {
@@ -163,6 +163,7 @@ function performOperation(operator) {
         if (result.toString().match(regExp)) {
             result = result.toPrecision(8);
         }
+        // append any operator, but the equals
         selectors.input.value = operator === constants.EQUALS_OPERATOR ? result : result + operator;
     }    
 }
