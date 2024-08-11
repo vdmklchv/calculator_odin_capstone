@@ -25,14 +25,14 @@ function operate(elements) {
 
     
     switch (operator) {
-        case "+":
+        case constants.ADD_OPERATOR:
             return calculator.add(num1, num2);
-        case "-":
+        case constants.SUBTRACT_OPERATOR:
             return calculator.subtract(num1, num2);
-        case "*":
+        case constants.MULTIPLY_OPERATOR:
             return calculator.multiply(num1, num2);
             ;
-        case "/":
+        case constants.DIVIDE_OPERATOR:
             return calculator.divide(num1, num2);
     }
 }
@@ -45,7 +45,7 @@ function parseString(string) {
     if (string.match(/^[-]d*/)) {
         const strippedString = string.slice(1,);
         const strippedArray = strippedString.split(regex);
-        strippedArray[0] = "-" + strippedArray[0];
+        strippedArray[0] = constants.SUBTRACT_OPERATOR + strippedArray[0];
         return strippedArray;
     }
 
@@ -60,19 +60,19 @@ function process(e) {
                 enableOperatingButtons();
                 break;
             case "add":
-                performOperation("+");
+                performOperation(constants.ADD_OPERATOR);
                 break;
             case "subtract":
-                performOperation("-");
+                performOperation(constants.SUBTRACT_OPERATOR);
                 break;    
             case "multiply":
-                performOperation("*");
+                performOperation(constants.MULTIPLY_OPERATOR);
                 break;
             case "divide":
-                performOperation("/");
+                performOperation(constants.DIVIDE_OPERATOR);
                 break;
             case "equals":
-                performOperation("=");
+                performOperation(constants.EQUALS_OPERATOR);
                 break;
             default:
                 if (selectors.input.value === "0") {
@@ -112,7 +112,7 @@ function performOperation(operator) {
     if (selectors.input.value === "0") {
         clearDefaultInputValue();
     }
-    if (operator !== "=") {
+    if (operator !== constants.EQUALS_OPERATOR) {
         selectors.input.value += operator;
     }
     const elements = parseString(valueToParse);
@@ -123,7 +123,7 @@ function performOperation(operator) {
             return;
         }
         const result = operate(elements);
-        selectors.input.value = operator === "=" ? result : result + operator;
+        selectors.input.value = operator === constants.EQUALS_OPERATOR ? result : result + operator;
     }    
 }
 
@@ -138,6 +138,16 @@ function clearDefaultInputValue() {
 function removeLastElement() {
     selectors.input.value = selectors.input.value.slice(0, -1);
 }
+
+const constants = {
+    ADD_OPERATOR: "+",
+    SUBTRACT_OPERATOR: "-",
+    MULTIPLY_OPERATOR: "*",
+    DIVIDE_OPERATOR: "/",
+    EQUALS_OPERATOR: "=",
+    DIVISION_BY_ZERO_ERROR: "division by 0",
+}
+
 
 const selectors = {
     buttonContainer: document.querySelector(".buttons"),
