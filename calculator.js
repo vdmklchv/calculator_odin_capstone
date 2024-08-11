@@ -52,41 +52,41 @@ function process(e) {
     if (e.target.className !== "buttons") {
         switch (e.target.value) {
             case "clear":
-                input.value = "";
+                selectors.input.value = "";
                 enableOperatingButtons();
                 break;
             case "add":
-                valueToParse = input.value;
-                input.value += "+";
+                valueToParse = selectors.input.value;
+                selectors.input.value += "+";
                 elements = parseString(valueToParse);
                 if (elements.length === 3) {
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    input.value = result + "+";
+                    selectors.input.value = result + "+";
                 }
                 break;
             case "subtract":
                 // rewrite by changing case names to actual operators and simplify
                 // capture input prior to appending new operator to pass to the parser
-                valueToParse = input.value;
-                input.value += "-";
+                valueToParse = selectors.input.value;
+                selectors.input.value += "-";
                 elements = parseString(valueToParse);
                 if (elements.length === 3) {
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    input.value = result + "-";
+                    selectors.input.value = result + "-";
                 }
                 break;    
             case "multiply":
-                valueToParse = input.value;
-                input.value += "*";
+                valueToParse = selectors.input.value;
+                selectors.input.value += "*";
                 elements = parseString(valueToParse);
                 if (elements.length === 3) {
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    input.value = result + "*";
+                    selectors.input.value = result + "*";
                 }
                 break;
             case "divide":
-                valueToParse = input.value;
-                input.value += "/";
+                valueToParse = selectors.input.value;
+                selectors.input.value += "/";
                 elements = parseString(valueToParse);
                 if (elements.length === 3) {
                     if (isDividingByZero(elements)) {
@@ -95,11 +95,11 @@ function process(e) {
                         return;
                     }
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    input.value = result + "/";
+                    selectors.input.value = result + "/";
                 }
                 break;
             case "equals":
-                valueToParse = input.value;
+                valueToParse = selectors.input.value;
                 elements = parseString(valueToParse);
                 if (elements.length === 3) {
                     if (isDividingByZero(elements)) {
@@ -108,11 +108,11 @@ function process(e) {
                         return;
                     }
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
-                    input.value = result;
+                    selectors.input.value = result;
                 }
                 break;
             default:
-                input.value += e.target.value;
+                selectors.input.value += e.target.value;
                 break;
         }
     }
@@ -123,24 +123,26 @@ function isDividingByZero(elements) {
 }
 
 function processDividingByZero() {
-    input.value="division by 0";
+    selectors.input.value="division by 0";
 }
 
 function disableOperatingButtons() {
-    for (let button of operatingButtons) {
+    for (let button of selectors.operatingButtons) {
         button.disabled = "disabled";
     }
 }
 
 function enableOperatingButtons() {
-    for (let button of operatingButtons) {
+    for (let button of selectors.operatingButtons) {
         button.disabled = false;
     }
 }
 
-const buttonContainer = document.querySelector(".buttons");
-const input = document.querySelector(".calc-input");
-const operatingButtons = document.querySelectorAll(".buttons > button:not(:first-child");
+const selectors = {
+    buttonContainer: document.querySelector(".buttons"),
+    input: document.querySelector(".calc-input"),
+    operatingButtons: document.querySelectorAll(".buttons > button:not(:first-child"),
+}
 
 
-buttonContainer.addEventListener('click', process);
+selectors.buttonContainer.addEventListener('click', process);
