@@ -75,7 +75,7 @@ function process(e) {
                 performOperation(constants.EQUALS_OPERATOR);
                 break;
             default:
-                if (selectors.input.value === "0") {
+                if (selectors.input.value === "0" && e.target.id !== "backspace-button") {
                     clearDefaultInputValue();
                 }
                 if (e.target.id !== "backspace-button") {
@@ -137,6 +137,9 @@ function clearDefaultInputValue() {
 
 function removeLastElement() {
     selectors.input.value = selectors.input.value.slice(0, -1);
+    if (selectors.input.value === "") {
+        selectors.input.value = "0";
+    }
 }
 
 const constants = {
