@@ -31,7 +31,6 @@ function operate(elements) {
             return calculator.subtract(num1, num2);
         case constants.MULTIPLY_OPERATOR:
             return calculator.multiply(num1, num2);
-            ;
         case constants.DIVIDE_OPERATOR:
             return calculator.divide(num1, num2);
     }
