@@ -90,19 +90,19 @@ function process(e) {
                 break;
             case "Shift":
                 break;
+            case "backspace":
+            case "Backspace":
+                removeLastElement();
+                break;
             default:
-                if (e.target.id === "backspace-button" || e.key === "Backspace") {
-                    removeLastElement();
-                }
                 if (selectors.input.value === "0" && e.target.id !== "backspace-button") {
                     clearDefaultInputValue();
                 }
-                if (e.target.id !== "backspace-button" && e.key !== "Backspace") {
-                    if (e.type === "click") {
-                        selectors.input.value += e.target.value;
-                    } else {
-                        selectors.input.value += e.key;
-                    }
+                
+                if (e.type === "click") {
+                    selectors.input.value += e.target.value;
+                } else {
+                    selectors.input.value += e.key;
                 }
                 break;
         }
