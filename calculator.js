@@ -53,6 +53,7 @@ function process(e) {
         switch (e.target.value) {
             case "clear":
                 input.value = "";
+                enableOperatingButtons();
                 break;
             case "add":
                 valueToParse = input.value;
@@ -90,6 +91,7 @@ function process(e) {
                 if (elements.length === 3) {
                     if (isDividingByZero(elements)) {
                         processDividingByZero();
+                        disableOperatingButtons();
                         return;
                     }
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
@@ -102,6 +104,7 @@ function process(e) {
                 if (elements.length === 3) {
                     if (isDividingByZero(elements)) {
                         processDividingByZero();
+                        disableOperatingButtons();
                         return;
                     }
                     const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
@@ -123,7 +126,21 @@ function processDividingByZero() {
     input.value="division by 0";
 }
 
+function disableOperatingButtons() {
+    for (let button of operatingButtons) {
+        button.disabled = "disabled";
+    }
+}
+
+function enableOperatingButtons() {
+    for (let button of operatingButtons) {
+        button.disabled = false;
+    }
+}
+
 const buttonContainer = document.querySelector(".buttons");
 const input = document.querySelector(".calc-input");
+const operatingButtons = document.querySelectorAll(".buttons > button:not(:first-child");
+
 
 buttonContainer.addEventListener('click', process);
