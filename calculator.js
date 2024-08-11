@@ -18,7 +18,12 @@ const calculator = {
 
 }
 
-function operate(num1, num2, operator) {
+function operate(elements) {
+    const num1 = Number(elements[0]);
+    const num2 = Number(elements[2]);
+    const operator = elements[1];
+
+    
     switch (operator) {
         case "+":
             return calculator.add(num1, num2);
@@ -112,7 +117,7 @@ function performOperation(operator) {
             disableOperatingButtons();
             return;
         }
-        const result = operate(Number(elements[0]), Number(elements[2]), elements[1]);
+        const result = operate(elements);
         selectors.input.value = operator === "=" ? result : result + operator;
     }    
 }
