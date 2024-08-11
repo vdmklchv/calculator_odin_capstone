@@ -59,8 +59,6 @@ function process(e) {
                 performOperation("+");
                 break;
             case "subtract":
-                // rewrite by changing case names to actual operators and simplify
-                // capture input prior to appending new operator to pass to the parser
                 performOperation("-");
                 break;    
             case "multiply":
@@ -100,6 +98,7 @@ function enableOperatingButtons() {
 }
 
 function performOperation(operator) {
+    // capture input prior to appending new operator to pass to the parser
     valueToParse = selectors.input.value;
     if (operator !== "=") {
         selectors.input.value += operator;
