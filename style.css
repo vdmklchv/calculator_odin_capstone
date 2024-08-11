@@ -49,8 +49,31 @@ body {
     flex-basis: 67px;
     flex-shrink: 0;
     flex-grow: 1;
+    border: none;
+    background-color: #E9F5DC;
+    cursor: pointer;
+    border: 1px solid #E0E094;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.buttons > button:hover {
+    background-color: #E9DCF5;
+}
+
+.buttons > .operator {
+    background-color: #DCE9F5;
+}
+
+.operator:hover {
+    background-color: #E9DCF5;
 }
 
 #clear-button {
     flex-basis: 74.5%;
+    background-color: #DCDCF5;
+    color: brown;
+    font-weight: 700;
+    font-size: 1em;
 }
