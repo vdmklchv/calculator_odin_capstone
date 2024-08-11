@@ -47,12 +47,11 @@ function parseString(string) {
 }
 
 function process(e) {
-    let valueToParse = null;
-    let elements = null;
+    clearDefaultInputValue();
     if (e.target.className !== "buttons") {
         switch (e.target.value) {
             case "clear":
-                selectors.input.value = "";
+                setDefaultInputValue();
                 enableOperatingButtons();
                 break;
             case "add":
@@ -99,11 +98,11 @@ function enableOperatingButtons() {
 
 function performOperation(operator) {
     // capture input prior to appending new operator to pass to the parser
-    valueToParse = selectors.input.value;
+    const valueToParse = selectors.input.value;
     if (operator !== "=") {
         selectors.input.value += operator;
     }
-    elements = parseString(valueToParse);
+    const elements = parseString(valueToParse);
     if (elements.length === 3) {
         if (isDividingByZero(elements)) {
             processDividingByZero();
@@ -115,6 +114,14 @@ function performOperation(operator) {
     }    
 }
 
+function setDefaultInputValue() {
+    selectors.input.value = "0";
+}
+
+function clearDefaultInputValue() {
+    selectors.input.value = "";
+}
+
 const selectors = {
     buttonContainer: document.querySelector(".buttons"),
     input: document.querySelector(".calc-input"),
@@ -123,3 +130,4 @@ const selectors = {
 
 
 selectors.buttonContainer.addEventListener('click', process);
+setDefaultInputValue();
